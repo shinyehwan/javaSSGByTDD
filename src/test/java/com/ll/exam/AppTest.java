@@ -8,6 +8,24 @@ import java.util.Scanner;
 import org.junit.jupiter.api.Test;
 
 public class AppTest {
+
+	@Test
+	public void 프로그램_시작시_타이틀_출력_그리고_종료() {
+		Scanner sc = TestUtil.genScanner("종료");
+		ByteArrayOutputStream output = TestUtil.setOutToByteArray();
+
+		new App(sc).run();
+
+		String rs = output.toString();
+		TestUtil.clearSetOutToByteArray(output);
+
+		System.out.println(rs);
+
+		assertTrue(rs.contains("== 명언 SSG =="));
+		assertTrue(rs.contains("명령) "));
+		// assertTrue(true);
+
+	}
 	@Test
 	public void 테스트() {
 		assertTrue(1==1);
