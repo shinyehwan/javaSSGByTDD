@@ -21,7 +21,7 @@ public class Util {
 		public static Map<String, Object> jsonToMapFromFile(String path) {
 			String json = file.readFromFile(path, "");
 
-			if ( json.isEmpty() ) {
+			if (json.isEmpty()) {
 				return null;
 			}
 
@@ -39,8 +39,9 @@ public class Util {
 
 			Map<String, Object> map = IntStream
 				.range(0, bits.size() / 2)
-				.mapToObj(i -> Pair.of((String) bits.get(i * 2), bits.get(i * 2 + 1)))
-				.collect(Collectors.toMap(p -> p.getKey(), p -> p.getValue(), (key1, key2) -> key1, LinkedHashMap::new));
+				.mapToObj(i -> Pair.of((String)bits.get(i * 2), bits.get(i * 2 + 1)))
+				.collect(
+					Collectors.toMap(p -> p.getKey(), p -> p.getValue(), (key1, key2) -> key1, LinkedHashMap::new));
 
 			return map;
 		}
@@ -49,8 +50,8 @@ public class Util {
 	public static class file {
 
 		public static void saveToFile(String path, String body) {
-			try(RandomAccessFile stream = new RandomAccessFile(path, "rw");
-				FileChannel channel = stream.getChannel()) {
+			try (RandomAccessFile stream = new RandomAccessFile(path, "rw");
+				 FileChannel channel = stream.getChannel()) {
 				byte[] strBytes = body.getBytes();
 				ByteBuffer buffer = ByteBuffer.allocate(strBytes.length);
 				buffer.put(strBytes);
@@ -63,6 +64,7 @@ public class Util {
 			}
 
 		}
+
 		public static void mkdir(String path) {
 			new File(path).mkdir();
 		}
@@ -98,9 +100,22 @@ public class Util {
 					.map(Path::toFile)
 					.forEach(File::delete);
 			} catch (IOException e) {
-				throw new RuntimeException(e);
+
 			}
 		}
-	}
 
+		public static List<String> getFileNamesFromDir(String path) {
+			try (Stream<Path> stream = Files.walk(Paths.get(path), 1)) {
+				return stream
+					.filter(file -> !Files.isDirectory(file))
+					.map(Path::getFileName)
+					.map(Path::toString)
+					.collect(Collectors.toList());
+			} catch (IOException e) {
+				return new ArrayList<>();
+			}
+
+		}
+
+	}
 }
