@@ -12,11 +12,10 @@ public class WiseSayingRepository {
 		wiseSayings = new ArrayList<>();
 	}
 
-	public WiseSaying write(String content, String author) {
+	public WiseSaying add(String content, String author) {
 		int id = ++wiseSayingLastId;
 		WiseSaying wiseSaying = new WiseSaying(id, content, author);
 		wiseSayings.add(wiseSaying);
-		System.out.printf("%d번 명언이 등록되었습니다.\n", id);
 
 		return wiseSaying;
 	}

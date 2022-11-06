@@ -16,7 +16,7 @@ public class App {
 
 		outer:
 		while (true) {
-			System.out.println("명령) ");
+			System.out.print("명령) ");
 			String cmd = sc.nextLine().trim();
 			Rq rq = new Rq(cmd);
 			switch (rq.getPath()) {
@@ -25,6 +25,7 @@ public class App {
 					break;
 				case "목록":
 					wiseSayingController.list();
+					break;
 				case "삭제":
 					wiseSayingController.remove(rq);
 					break;

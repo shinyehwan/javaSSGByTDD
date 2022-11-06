@@ -13,9 +13,9 @@ public class WiseSayingController {
 	}
 
 	public void write() {
-		System.out.println("명언 : ");
+		System.out.print("명언 : ");
 		String content = sc.nextLine();
-		System.out.println("작가 : ");
+		System.out.print("작가 : ");
 		String author = sc.nextLine();
 		WiseSaying wiseSaying = wiseSayingService.write(content, author);
 
@@ -58,7 +58,7 @@ public class WiseSayingController {
 		int id = rq.getIntParam("id", 0);
 
 		if (id == 0) {
-			System.out.println("번호를 입력해주세요.");
+			System.out.print("번호를 입력해주세요.");
 			return;
 		}
 
@@ -70,11 +70,11 @@ public class WiseSayingController {
 		}
 
 		System.out.printf("명언(기존) : %s\n", wiseSaying.content);
-		System.out.println("명언 : ");
+		System.out.print("명언 : ");
 		String content = sc.nextLine();
 
 		System.out.printf("작가(기존) : %s", wiseSaying.author);
-		System.out.println("작가 : ");
+		System.out.print("작가 : ");
 		String author = sc.nextLine();
 
 		wiseSayingService.modify(id, content, author);
