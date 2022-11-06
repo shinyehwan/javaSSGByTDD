@@ -4,10 +4,15 @@ import java.util.Scanner;
 
 public class App {
 
+	public static String mode = "prod";
 	private Scanner sc;
 
 	public App(Scanner sc) {
 		this.sc = sc;
+	}
+
+	public static String getBaseDir() {
+		return mode + "_data";
 	}
 
 	public void run() {
