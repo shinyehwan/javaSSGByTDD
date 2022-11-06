@@ -13,13 +13,14 @@ public class WiseSaying {
 
 	public String toJson() {
 		return """
-			{
-			    "id": %d,
-			    "content": "%s",
-			    "author": "%s"
-			}
-			""".stripIndent().formatted(id, content, author);
+                {
+                    "id": %d,
+                    "content": "%s",
+                    "author": "%s"
+                }
+                """.stripIndent().formatted(id, content, author);
 	}
+
 	@Override
 	public String toString() {
 		return "WiseSaying{" +
@@ -28,5 +29,4 @@ public class WiseSaying {
 			", author='" + author + '\'' +
 			'}';
 	}
-
 }

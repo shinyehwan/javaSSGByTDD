@@ -20,11 +20,15 @@ public class WiseSayingTable {
 
 	public WiseSaying save(String content, String author) {
 		int id = getLastId() + 1;
+
 		WiseSaying wiseSaying = new WiseSaying(id, content, author);
 		save(wiseSaying);
+
 		saveLastId(id);
+
 		return wiseSaying;
 	}
+
 	public boolean save(int id, String content, String author) {
 		WiseSaying wiseSaying = new WiseSaying(id, content, author);
 		save(wiseSaying);
@@ -38,11 +42,14 @@ public class WiseSayingTable {
 
 	public int getLastId() {
 		String lastId = Util.file.readFromFile("%s/wise_saying/last_id.txt".formatted(baseDir), "");
+
 		if (lastId.isEmpty()) {
 			return 0;
 		}
+
 		return Integer.parseInt(lastId);
 	}
+
 	public WiseSaying findById(int id) {
 		String path = "%s/wise_saying/%d.json".formatted(baseDir, id);
 
@@ -87,4 +94,6 @@ public class WiseSayingTable {
 		new File(path).delete();
 		return true;
 	}
+
+
 }

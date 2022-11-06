@@ -9,11 +9,10 @@ import java.nio.channels.FileChannel;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Comparator;
-import java.util.stream.Stream;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class Util {
 	public static class json {
@@ -39,16 +38,14 @@ public class Util {
 
 			Map<String, Object> map = IntStream
 				.range(0, bits.size() / 2)
-				.mapToObj(i -> Pair.of((String)bits.get(i * 2), bits.get(i * 2 + 1)))
-				.collect(
-					Collectors.toMap(p -> p.getKey(), p -> p.getValue(), (key1, key2) -> key1, LinkedHashMap::new));
+				.mapToObj(i -> Pair.of((String) bits.get(i * 2), bits.get(i * 2 + 1)))
+				.collect(Collectors.toMap(p -> p.getKey(), p -> p.getValue(), (key1, key2) -> key1, LinkedHashMap::new));
 
 			return map;
 		}
 	}
 
 	public static class file {
-
 		public static void saveToFile(String path, String body) {
 			try (RandomAccessFile stream = new RandomAccessFile(path, "rw");
 				 FileChannel channel = stream.getChannel()) {
@@ -62,24 +59,27 @@ public class Util {
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
-
 		}
 
 		public static void mkdir(String path) {
-			new File(path).mkdir();
+			new File(path).mkdirs();
 		}
 
 		public static String readFromFile(String path, String defaultValue) {
-			// verify
-			try (RandomAccessFile reader = new RandomAccessFile(path, "r");) {
+			try (RandomAccessFile reader = new RandomAccessFile(path, "r")) {
 				StringBuilder sb = new StringBuilder();
+
 				String line;
+
 				boolean isFirst = true;
+
 				while ((line = reader.readLine()) != null) {
 					if (isFirst == false) {
 						sb.append("\n");
 					}
+
 					sb.append(new String(line.getBytes("iso-8859-1"), "utf-8"));
+
 					isFirst = false;
 				}
 
@@ -90,7 +90,6 @@ public class Util {
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
-
 		}
 
 		public static void deleteDir(String path) {
@@ -114,8 +113,7 @@ public class Util {
 			} catch (IOException e) {
 				return new ArrayList<>();
 			}
-
 		}
-
 	}
 }
+
