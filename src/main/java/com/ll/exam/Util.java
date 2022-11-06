@@ -30,7 +30,7 @@ public class Util {
 			new File(path).mkdir();
 		}
 
-		public static String readFromFile(String path) {
+		public static String readFromFile(String path, String defaultValue) {
 			// verify
 			try (RandomAccessFile reader = new RandomAccessFile(path, "r");) {
 				StringBuilder sb = new StringBuilder();
@@ -47,7 +47,7 @@ public class Util {
 				return sb.toString();
 
 			} catch (FileNotFoundException e) {
-				throw new RuntimeException(e);
+				return defaultValue;
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
