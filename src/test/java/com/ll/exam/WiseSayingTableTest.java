@@ -5,16 +5,19 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.io.File;
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class WiseSayingTableTest {
-	WiseSayingTable wiseSayingTable;
-
-	public WiseSayingTableTest() {
-		wiseSayingTable = new WiseSayingTable("test_data");
+	private WiseSayingTable wiseSayingTable;
+	@BeforeAll
+	public void beforeAll() {
+		App.setMode("test");
+		wiseSayingTable = new WiseSayingTable();
 	}
-
 	@BeforeEach
 	public void beforeEach() {
 		Util.file.deleteDir(App.getDataBaseDir());
@@ -27,7 +30,7 @@ public class WiseSayingTableTest {
 	public void 저장() {
 		int newId = wiseSayingTable.getLastId() + 1;
 		wiseSayingTable.save("자유가 아니면 죽음을 달라!", "패트릭 헨리");
-		assertTrue(new File("%s/wise_saying/%d.json".formatted(App.getDataBaseDir(), newId)).exists());
+		assertTrue(new File(WiseSayingTable.getTableDataFilePath(newId)).exists());
 	}
 	@Test
 	public void 조회() {

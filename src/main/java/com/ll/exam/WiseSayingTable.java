@@ -6,16 +6,27 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class WiseSayingTable {
-	private String baseDir;
+	public WiseSayingTable() {
+	}
+	private static String getTableDirPath() {
+		return App.getDataBaseDir() + "/wise_saying";
+	}
+	public static String getTableDataFilePath(int id) {
+		return getTableDirPath() + "/" + id + ".json";
+	}
 
-	public WiseSayingTable(String baseDir) {
-		this.baseDir = baseDir;
+	public static String getTableLastIdFilePath() {
+		return getTableDirPath() + "/last_id.txt";
+	}
+
+	public static String getTableDataDumpFilePath() {
+		return getTableDirPath() + "/data.json";
 	}
 
 	public void save(WiseSaying wiseSaying) {
-		Util.file.mkdir("%s/wise_saying".formatted(baseDir));
+		Util.file.mkdir(getTableDirPath());
 		String body = wiseSaying.toJson();
-		Util.file.saveToFile("%s/wise_saying/%d.json".formatted(baseDir, wiseSaying.id), body);
+		Util.file.saveToFile(getTableDataFilePath(wiseSaying.id), body);
 	}
 
 	public WiseSaying save(String content, String author) {
@@ -37,11 +48,11 @@ public class WiseSayingTable {
 	}
 
 	private void saveLastId(int id) {
-		Util.file.saveToFile("%s/wise_saying/last_id.txt".formatted(baseDir), id + "");
+		Util.file.saveToFile(getTableLastIdFilePath(), id + "");
 	}
 
 	public int getLastId() {
-		String lastId = Util.file.readFromFile("%s/wise_saying/last_id.txt".formatted(baseDir), "");
+		String lastId = Util.file.readFromFile(getTableLastIdFilePath(), "");
 
 		if (lastId.isEmpty()) {
 			return 0;
@@ -51,7 +62,7 @@ public class WiseSayingTable {
 	}
 
 	public WiseSaying findById(int id) {
-		String path = "%s/wise_saying/%d.json".formatted(baseDir, id);
+		String path = getTableDataFilePath(id);
 
 		if (new File(path).exists() == false) {
 			return null;
@@ -76,7 +87,7 @@ public class WiseSayingTable {
 	}
 
 	private List<Integer> getFileIds() {
-		String path = "%s/wise_saying".formatted(baseDir);
+		String path = getTableDirPath();
 		List<String> fileNames = Util.file.getFileNamesFromDir(path);
 
 		return fileNames
@@ -88,10 +99,19 @@ public class WiseSayingTable {
 			.collect(Collectors.toList());
 	}
 
-	public boolean removeById(int id) {
-		String path = "%s/wise_saying/%d.json".formatted(baseDir, id);
 
-		new File(path).delete();
+
+	public boolean removeById(int id) {
+		String path = getTableDataFilePath(id);
+
+		File file = new File(path);
+
+		if (file.exists() == false) {
+			return false;
+		}
+
+		file.delete();
+
 		return true;
 	}
 

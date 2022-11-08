@@ -6,7 +6,7 @@ public class WiseSayingRepository {
 	private WiseSayingTable wiseSayingTable;
 
 	public WiseSayingRepository() {
-		wiseSayingTable = new WiseSayingTable(App.getDataBaseDir());
+		wiseSayingTable = new WiseSayingTable();
 	}
 
 	public WiseSaying add(String content, String author) {
@@ -29,3 +29,4 @@ public class WiseSayingRepository {
 		return wiseSayingTable.removeById(id);
 	}
 }
+
