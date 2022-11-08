@@ -48,17 +48,11 @@ public class WiseSayingTable {
 	}
 
 	private void saveLastId(int id) {
-		Util.file.saveToFile(getTableLastIdFilePath(), id + "");
+		Util.file.saveNoToFile(getTableLastIdFilePath(), id);
 	}
 
 	public int getLastId() {
-		String lastId = Util.file.readFromFile(getTableLastIdFilePath(), "");
-
-		if (lastId.isEmpty()) {
-			return 0;
-		}
-
-		return Integer.parseInt(lastId);
+		return Util.file.readNoFromFile(getTableLastIdFilePath(), 0);
 	}
 
 	public WiseSaying findById(int id) {
