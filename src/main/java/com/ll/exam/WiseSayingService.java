@@ -32,13 +32,6 @@ public class WiseSayingService {
 	}
 
 	public void dumpToJson() {
-		List<WiseSaying> wiseSayings = wiseSayingRepository.findAll();
-
-		String json = "[" + wiseSayings
-			.stream()
-			.map(wiseSaying -> wiseSaying.toJson())
-			.collect(Collectors.joining(",")) + "]";
-
-		Util.file.saveToFile(WiseSayingTable.getTableDataDumpFilePath(), json);
+		wiseSayingRepository.dumpToJson();
 	}
 }

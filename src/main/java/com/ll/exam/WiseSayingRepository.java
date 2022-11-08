@@ -28,5 +28,8 @@ public class WiseSayingRepository {
 	public boolean remove(int id) {
 		return wiseSayingTable.removeById(id);
 	}
+	public void dumpToJson() {
+		wiseSayingTable.dumpToJson();
+	}
 }
 
