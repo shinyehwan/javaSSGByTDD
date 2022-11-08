@@ -12,12 +12,12 @@ import org.junit.jupiter.api.TestInstance;
 public class WiseSayingControllerTest {
 	@BeforeAll
 	public void beforeAll() {
-		App.mode = "test";
+		App.setMode("test");
 	}
 
 	@BeforeEach
 	public void beforeEach() {
-		Util.file.deleteDir(App.getBaseDir());
+		Util.file.deleteDir(App.getDataBaseDir());
 	}
 	@Test
 	public void 등록을_하면_명언과_작가를_물어본다() {

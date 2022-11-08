@@ -3,17 +3,20 @@ package com.ll.exam;
 import java.util.Scanner;
 
 public class App {
-	public static String mode = "prod";
+	private static String mode = "prod";
 	private Scanner sc;
 
 	public App(Scanner sc) {
 		this.sc = sc;
 	}
 
-	public static String getBaseDir() {
+	public static String getDataBaseDir() {
 		return mode + "_data";
 	}
 
+	public static void setMode(String mode) {
+		App.mode = mode;
+	}
 	public void run() {
 		System.out.println("== 명언 SSG ==");
 
