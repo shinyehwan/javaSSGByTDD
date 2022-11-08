@@ -109,6 +109,7 @@ public class WiseSayingTable {
 		return true;
 	}
 	public void dumpToJson() {
+		Util.file.mkdir(getTableDirPath());
 		List<WiseSaying> wiseSayings = findAll();
 
 		String json = "[" + wiseSayings
@@ -116,7 +117,7 @@ public class WiseSayingTable {
 			.map(wiseSaying -> wiseSaying.toJson())
 			.collect(Collectors.joining(",")) + "]";
 
-		Util.file.saveToFile(WiseSayingTable.getTableDataDumpFilePath(), json);
+		Util.file.saveToFile(getTableDataDumpFilePath(), json);
 	}
 
 

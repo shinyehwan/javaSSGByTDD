@@ -2,6 +2,7 @@ package com.ll.exam;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.File;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -120,6 +121,17 @@ public class WiseSayingControllerTest {
 		assertTrue(rs.contains("명령) "));
 		// assertTrue(true);
 
+	}
+	@Test
+	public void 빌드를_수행하면_결과물_파일이_생성된다() {
+		String rs = AppTestRunner.run("빌드");
+
+		File file = new File(WiseSayingTable.getTableDataDumpFilePath());
+		assertTrue(file.exists());
+
+		String dumpFileBody = Util.file.readFromFile(WiseSayingTable.getTableDataDumpFilePath(), "");
+
+		assertEquals("[]", dumpFileBody);
 	}
 
 
