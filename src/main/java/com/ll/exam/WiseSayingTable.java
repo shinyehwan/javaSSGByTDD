@@ -87,6 +87,8 @@ public class WiseSayingTable {
 		return fileNames
 			.stream()
 			.filter(fileName -> !fileName.equals("last_id.txt"))
+			.filter(fileName -> !fileName.equals("data.json"))
+			.filter(fileName -> fileName.endsWith(".json"))
 			.map(fileName -> fileName.replace(".json", ""))
 			.mapToInt(Integer::parseInt)
 			.boxed()
