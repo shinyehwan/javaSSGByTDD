@@ -133,6 +133,43 @@ public class WiseSayingControllerTest {
 
 		assertEquals("[]", dumpFileBody);
 	}
+	@Test
+	public void 명언을_등록한_후_빌드를_수행하면_등록한_내용을_포함하는_결과물_파일이_생성된다() {
+		String rs = AppTestRunner.run("""
+                 등록
+                 나의 죽음을 적들에게 알리지 말라
+                 이순신
+                 등록
+                 나에게 불가능이란 없다.
+                 나폴레옹
+                 빌드
+                 """);
 
+		String dumpFileBody = Util.file.readFromFile(WiseSayingTable.getTableDataDumpFilePath(), "");
 
+		assertTrue(dumpFileBody.contains("""
+                 "id": 1
+                 """.stripIndent().trim()));
+
+		assertTrue(dumpFileBody.contains("""
+                 "content": "나의 죽음을 적들에게 알리지 말라"
+                 """.stripIndent().trim()));
+
+		assertTrue(dumpFileBody.contains("""
+                 "author": "이순신"
+                 """.stripIndent().trim()));
+
+		assertTrue(dumpFileBody.contains("""
+                 "id": 2
+                 """.stripIndent().trim()));
+
+		assertTrue(dumpFileBody.contains("""
+                 "content": "나에게 불가능이란 없다."
+                 """.stripIndent().trim()));
+
+		assertTrue(dumpFileBody.contains("""
+                 "author": "나폴레옹"
+                 """.stripIndent().trim()));
+	}
 }
+
